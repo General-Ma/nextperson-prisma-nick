@@ -1,7 +1,7 @@
 //'use client'
 
 import React from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from '@mui/material';
 import { Person, convertDateOfBirthToString } from '../lib/person';
 
@@ -13,9 +13,15 @@ interface PersonDialogProps {
   handleSubmit: () => void;
 }
 
-const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentPerson, setCurrentPerson, handleSubmit }) => (
+const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentPerson, setCurrentPerson, handleSubmit }) => {
+  const [initialCurrentPersonExist, setInitialCurrentPersonExist] = useState<boolean>(false);
+  useEffect(() => {
+      setInitialCurrentPersonExist(currentPerson !== null);
+  }, [open]);
+  
+  return (
   <Dialog open={open} onClose={handleClose}>
-    <DialogTitle>{currentPerson ? 'Edit Person' : 'Add Person'}</DialogTitle>
+    <DialogTitle>{initialCurrentPersonExist ? 'Edit Person' : 'Add Person'}</DialogTitle>
     <DialogContent>
       <TextField
         autoFocus
@@ -56,10 +62,10 @@ const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentP
         Cancel
       </Button>
       <Button onClick={handleSubmit} color="primary">
-        {currentPerson ? 'Update' : 'Add'}
+        {initialCurrentPersonExist ? 'Update' : 'Add'}
       </Button>
     </DialogActions>
   </Dialog>
-);
+)};
 
 export default PersonDialog;
