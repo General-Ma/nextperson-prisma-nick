@@ -19,4 +19,5 @@ model Person {
   firstname String
   lastname  String
   phone     String
+  dateOfBirth DateTime
 }

@@ -1,8 +1,9 @@
 //'use client'
 
 import React from 'react';
+import { useEffect } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from '@mui/material';
-import { Person } from '../lib/person';
+import { Person, convertDateOfBirthToString } from '../lib/person';
 
 interface PersonDialogProps {
   open: boolean;
@@ -37,6 +38,17 @@ const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentP
         fullWidth
         value={currentPerson?.phone || ''}
         onChange={e => setCurrentPerson(prev => ({ ...prev!, phone: e.target.value }))}
+      />
+      <TextField
+        margin="dense"
+        label="Date of Birth"
+        type="date"
+        fullWidth
+        value={currentPerson?.dateOfBirth ? convertDateOfBirthToString(currentPerson): '2001-01-01'}
+        onChange={(e) => {
+          setCurrentPerson(prev => ({...prev!,dateOfBirth: new Date(e.target.value)}))
+        }
+      }
       />
     </DialogContent>
     <DialogActions>
