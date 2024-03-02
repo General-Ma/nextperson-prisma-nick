@@ -1,10 +1,6 @@
 nextperson-prisma v2
 
--Added Address column front-end and back-end. 
--Added (street,city,state,zip,country) under Address and created an Address Id. 
--In order to save the address succesfully you need to enter address when creating a new person. 
--If you try to edit address it won't be saved.
-
+The latest update to nextperson-prisma v2 includes the addition of an Address column both in the front-end and back-end. Within the Address column, fields such as street, city, state, zip, and country have been included, along with the creation of an Address Id. It's now necessary to input an address when creating a new person for it to be saved successfully. However, editing an address won't result in it being saved. The project documentation provides guidance on setting up the environment, running migrations, and utilising API routes for managing a list of people using Next.js and Prisma.
 
 
 # Project Documentation
