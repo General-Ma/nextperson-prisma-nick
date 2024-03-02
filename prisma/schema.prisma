@@ -1,12 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-
-//added the binaryTargets rhel so that it works with AWS Amplify 
-//native is for Windows OS 
 generator client {
-  provider = "prisma-client-js"
-    binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
@@ -15,9 +9,21 @@ datasource db {
 }
 
 model Person {
-  id        Int     @id @default(autoincrement())
-  firstname String
-  lastname  String
-  phone     String
+  id          Int      @id @default(autoincrement())
+  firstname   String
+  lastname    String
+  phone       String
   dateOfBirth DateTime
+  addressId   Int?
+  address     Address? @relation(fields: [addressId], references: [id])
+}
+
+model Address {
+  id      Int      @id @default(autoincrement())
+  street  String
+  city    String
+  state   String
+  zipCode String   @db.VarChar(10)
+  country String
+  Person  Person[]
 }

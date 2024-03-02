@@ -13,7 +13,6 @@ import { Person } from '../app/lib/person';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
 
 //import my custom Footer that will go at the bottom of the page
 import Footer from './components/CFooter';

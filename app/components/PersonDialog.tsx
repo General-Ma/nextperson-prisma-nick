@@ -18,6 +18,22 @@ const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentP
   useEffect(() => {
       setInitialCurrentPersonExist(currentPerson !== null);
   }, [open]);
+
+  const handleAddressChange = (field: keyof Person['address'], value: string) => {
+    setCurrentPerson(prev => {
+      if (prev) {
+        return {
+          ...prev,
+          address: {
+            ...prev.address,
+            [field]: value || '', // If value is undefined, assign an empty string
+          }
+        };
+      }
+      return null;
+    });
+  };
+
   
   return (
   <Dialog open={open} onClose={handleClose}>
@@ -56,6 +72,41 @@ const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentP
         }
       }
       />
+     <TextField
+        margin="dense"
+        label="Street"
+        fullWidth
+        value={currentPerson?.address?.street || ''}
+        onChange={e => handleAddressChange('street', e.target.value)}
+        />
+       <TextField
+         margin="dense"
+         label="City"
+         fullWidth
+         value={currentPerson?.address?.city || ''}
+         onChange={e => handleAddressChange('city', e.target.value)}
+          />
+          <TextField
+         margin="dense"
+         label="State"
+         fullWidth
+         value={currentPerson?.address?.state || ''}
+         onChange={e => handleAddressChange('state', e.target.value)}
+          />
+          <TextField
+         margin="dense"
+         label="Zip Code"
+         fullWidth
+         value={currentPerson?.address?.zipCode || ''}
+         onChange={e => handleAddressChange('zipCode', e.target.value)}
+          />
+          <TextField
+         margin="dense"
+         label="Country"
+         fullWidth
+         value={currentPerson?.address?.country || ''}
+         onChange={e => handleAddressChange('country', e.target.value)}
+          />
     </DialogContent>
     <DialogActions>
       <Button onClick={handleClose} color="primary">

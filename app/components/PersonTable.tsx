@@ -10,6 +10,13 @@ interface PersonTableProps {
   handleDelete: (id: number) => void;
 }
 
+import { Address } from '../lib/person';
+
+const formatAddress = (address: Address | null): string => {
+  if (!address) return 'No address';
+  // Example format: "Street, City, State, ZipCode, Country"
+  return `${address.street}, ${address.city}, ${address.state}, ${address.zipCode}, ${address.country}`;
+};
 const PersonTable: React.FC<PersonTableProps> = ({ people, handleOpen, handleDelete }) => (
   <Paper>
     <Table>
@@ -19,7 +26,7 @@ const PersonTable: React.FC<PersonTableProps> = ({ people, handleOpen, handleDel
           <TableCell>Last Name</TableCell>
           <TableCell>Phone</TableCell>
           <TableCell>Date of Birth</TableCell>
-          <TableCell>Actions</TableCell>
+          <TableCell>Address</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -29,6 +36,7 @@ const PersonTable: React.FC<PersonTableProps> = ({ people, handleOpen, handleDel
             <TableCell>{person.lastname}</TableCell>
             <TableCell>{person.phone}</TableCell>
             <TableCell>{convertDateOfBirthToString(person)}</TableCell>
+            <TableCell>{formatAddress(person.address)}</TableCell>
             <TableCell>
               <Button onClick={() => handleOpen(person)}>Edit</Button>
               <Button onClick={() => handleDelete(person.id)}>Delete</Button>
