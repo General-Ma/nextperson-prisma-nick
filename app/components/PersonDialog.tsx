@@ -1,8 +1,9 @@
 //'use client'
 
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from '@mui/material';
-import { Person } from '../lib/person';
+import { Person, convertDateOfBirthToString } from '../lib/person';
 
 interface PersonDialogProps {
   open: boolean;
@@ -12,9 +13,15 @@ interface PersonDialogProps {
   handleSubmit: () => void;
 }
 
-const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentPerson, setCurrentPerson, handleSubmit }) => (
+const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentPerson, setCurrentPerson, handleSubmit }) => {
+  const [initialCurrentPersonExist, setInitialCurrentPersonExist] = useState<boolean>(false);
+  useEffect(() => {
+      setInitialCurrentPersonExist(currentPerson !== null);
+  }, [open]);
+  
+  return (
   <Dialog open={open} onClose={handleClose}>
-    <DialogTitle>{currentPerson ? 'Edit Person' : 'Add Person'}</DialogTitle>
+    <DialogTitle>{initialCurrentPersonExist ? 'Edit Person' : 'Add Person'}</DialogTitle>
     <DialogContent>
       <TextField
         autoFocus
@@ -38,16 +45,27 @@ const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentP
         value={currentPerson?.phone || ''}
         onChange={e => setCurrentPerson(prev => ({ ...prev!, phone: e.target.value }))}
       />
+      <TextField
+        margin="dense"
+        label="Date of Birth"
+        type="date"
+        fullWidth
+        value={currentPerson?.dateOfBirth ? convertDateOfBirthToString(currentPerson): '2001-01-01'}
+        onChange={(e) => {
+          setCurrentPerson(prev => ({...prev!,dateOfBirth: new Date(e.target.value)}))
+        }
+      }
+      />
     </DialogContent>
     <DialogActions>
       <Button onClick={handleClose} color="primary">
         Cancel
       </Button>
       <Button onClick={handleSubmit} color="primary">
-        {currentPerson ? 'Update' : 'Add'}
+        {initialCurrentPersonExist ? 'Update' : 'Add'}
       </Button>
     </DialogActions>
   </Dialog>
-);
+)};
 
 export default PersonDialog;

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Paper, Table, TableBody, TableCell, TableHead, TableRow, Button } from '@mui/material';
-import { Person } from '../lib/person';
+import { Person, convertDateOfBirthToString } from '../lib/person';
 
 interface PersonTableProps {
   people: Person[];
@@ -18,6 +18,7 @@ const PersonTable: React.FC<PersonTableProps> = ({ people, handleOpen, handleDel
           <TableCell>First Name</TableCell>
           <TableCell>Last Name</TableCell>
           <TableCell>Phone</TableCell>
+          <TableCell>Date of Birth</TableCell>
           <TableCell>Actions</TableCell>
         </TableRow>
       </TableHead>
@@ -27,6 +28,7 @@ const PersonTable: React.FC<PersonTableProps> = ({ people, handleOpen, handleDel
             <TableCell>{person.firstname}</TableCell>
             <TableCell>{person.lastname}</TableCell>
             <TableCell>{person.phone}</TableCell>
+            <TableCell>{convertDateOfBirthToString(person)}</TableCell>
             <TableCell>
               <Button onClick={() => handleOpen(person)}>Edit</Button>
               <Button onClick={() => handleDelete(person.id)}>Delete</Button>

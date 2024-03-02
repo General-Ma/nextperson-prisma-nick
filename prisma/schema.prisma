@@ -14,9 +14,10 @@ datasource db {
 }
 
 model Person {
-  id        Int     @id @default(autoincrement())
-  firstname String
-  lastname  String
-  phone     String
-  Hobby     String?
+  id          Int      @id @default(autoincrement())
+  firstname   String
+  lastname    String
+  phone       String
+  Hobby       String?
+  dateOfBirth DateTime
 }
