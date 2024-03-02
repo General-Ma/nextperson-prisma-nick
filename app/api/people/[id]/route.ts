@@ -61,7 +61,6 @@ export async function PUT(request: Request, context: any) {
       return new Response('Person not found', {
         status: 404,
       });
-    }
 
     return new Response(JSON.stringify(updatedPerson), {
       status: 200,
