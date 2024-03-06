@@ -31,19 +31,26 @@ The Prisma schema for this project defines the structure of the data related to 
 The `Person` model typically looks like this:
 ```prisma
 model Person {
-  id        Int     @id @default(autoincrement())
-  firstname String
-  lastname  String
-  phone     String
-  dateOfBirth: DateTime;
-  address: Address;
+  id          Int      @id @default(autoincrement())
+  firstname   String
+  lastname    String
+  phone       String
+  dateOfBirth DateTime
+  addressId   Int
+  address     Address? @relation(fields: [addressId], references: [id])
 }
 ```
 
 The `Address` model looks like this:
 ```prisma
-model Address{
-    ############ Hey Guys! We have a conflict or perhaps a bug here about this model, we gotta fix it first! ##########
+model Address {
+  id      Int      @id @default(autoincrement())
+  street  String
+  city    String
+  state   String
+  zipCode String   @db.VarChar(10)
+  country String
+  Person  Person[]
 }
 ```
 
