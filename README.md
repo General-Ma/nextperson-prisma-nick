@@ -2,8 +2,7 @@ nextperson-prisma v2
 
 -Added Address column front-end and back-end. 
 -Added (street,city,state,zip,country) under Address and created an Address Id. 
--In order to save the address succesfully you need to enter address when creating a new person. 
--If you try to edit address it won't be saved.
+-Fixed bugs
 
 
 
@@ -43,8 +42,14 @@ model Person {
 
 The `Address` model looks like this:
 ```prisma
-model Address{
-    ############ Hey Guys! We have a conflict or perhaps a bug here about this model, we gotta fix it first! ##########
+model Address {
+  id      Int      @id @default(autoincrement())
+  street  String
+  city    String
+  state   String
+  zipCode String   @db.VarChar(10)
+  country String
+  Person  Person[]
 }
 ```
 
