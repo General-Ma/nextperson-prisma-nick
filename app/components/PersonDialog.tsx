@@ -72,40 +72,40 @@ const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentP
         }
       }
       />
-     <TextField
+    <TextField
+      margin="dense"
+      label="Street"
+      fullWidth
+      value={currentPerson?.address?.street || ''}
+      onChange={e => handleAddressChange('street' as keyof Person['address'], e.target.value)}
+    />
+      <TextField
         margin="dense"
-        label="Street"
+        label="City"
         fullWidth
-        value={currentPerson?.address?.street || ''}
-        onChange={e => handleAddressChange('street', e.target.value)}
-        />
-       <TextField
-         margin="dense"
-         label="City"
-         fullWidth
-         value={currentPerson?.address?.city || ''}
-         onChange={e => handleAddressChange('city', e.target.value)}
+        value={currentPerson?.address?.city || ''}
+        onChange={e => handleAddressChange('city' as keyof Person['address'], e.target.value)}
+      />
+          <TextField
+            margin="dense"
+            label="State"
+            fullWidth
+            value={currentPerson?.address?.state || ''}
+            onChange={e => handleAddressChange('state' as keyof Person['address'], e.target.value)}
           />
           <TextField
-         margin="dense"
-         label="State"
-         fullWidth
-         value={currentPerson?.address?.state || ''}
-         onChange={e => handleAddressChange('state', e.target.value)}
+            margin="dense"
+            label="Zip Code"
+            fullWidth
+            value={currentPerson?.address?.zipCode || ''}
+            onChange={e => handleAddressChange('zipCode' as keyof Person['address'], e.target.value)}
           />
           <TextField
-         margin="dense"
-         label="Zip Code"
-         fullWidth
-         value={currentPerson?.address?.zipCode || ''}
-         onChange={e => handleAddressChange('zipCode', e.target.value)}
-          />
-          <TextField
-         margin="dense"
-         label="Country"
-         fullWidth
-         value={currentPerson?.address?.country || ''}
-         onChange={e => handleAddressChange('country', e.target.value)}
+            margin="dense"
+            label="Country"
+            fullWidth
+            value={currentPerson?.address?.country || ''}
+            onChange={e => handleAddressChange('country' as keyof Person['address'], e.target.value)}
           />
     </DialogContent>
     <DialogActions>
