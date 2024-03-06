@@ -3,37 +3,34 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
-export async function GET() {
-    const people = await prisma.person.findMany();
-    return new Response(JSON.stringify(people), {
-        status: 200,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-}
-
-export async function POST(req: NextRequest, res: NextResponse) {
+export const GET = async () => {
+   const people = await prisma.person.findMany({
+  include: {
+    address: true, // Include address data in the response
+  },
+});
+return new Response(JSON.stringify(people), {
+    status: 200, // HTTP status code 200 OK
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
+export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const {firstname, lastname, phone, dateOfBirth, address } = body;
         const { street, city, state, zipCode, country } = address;
 
-        if (!firstname || !lastname || !phone || !dateOfBirth || !address || !street || !city || !state || !zipCode || !country) {
+        if (!firstname || !lastname || !phone || !dateOfBirth || !street || !city || !state || !zipCode || !country) {
             return new Response('Missing required fields', {
                 status: 400,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             })
         }
 
-        const newAddress = await prisma.address.create({
-            data: {
-                street,
-                city,
-                state,
-                zipCode,
-                country,
-            },
-        });
 
         const person = await prisma.person.create({
             data: {
@@ -43,7 +40,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 dateOfBirth,
                 address:  {
                     create: {
-                        ...address,
+                        street,
+                        city,
+                        state,
+                        zipCode,
+                        country,
                     },
                 },
             },

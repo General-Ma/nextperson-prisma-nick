@@ -12,7 +12,7 @@ export interface Person {
     lastname: string;
     phone: string;
     dateOfBirth: Date;
-    address: Address;
+    address?: Address;
 }
 
 export const convertDateOfBirthToString = (person: Person): string => {

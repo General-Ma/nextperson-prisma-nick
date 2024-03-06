@@ -13,7 +13,10 @@ export async function GET(context: any) {
   const person = await prisma.person.findUnique({
     where: {
       id: parseInt(id),
-    }
+    }, 
+    include: {
+      address: true,
+    },
   })
   if (!person) {
     return new Response('Not found', {
@@ -52,22 +55,22 @@ export async function PUT(request: Request, context: any) {
 
     const updatedPerson = await prisma.$transaction(async (prisma) => {
       let addressData = { street, city, state, zipCode, country };
-
-      let addressId;
+    
       // Check if address exists and should be updated, or if a new one should be created
-      if (address.id) {
-        const updatedAddress = await prisma.address.update({
-          where: { id: address.id },
-          data: addressData,
-        });
-        addressId = updatedAddress.id;
+      let existingAddress = await prisma.address.findFirst({
+        where: addressData,
+      });
+    
+      let addressId;
+      if (existingAddress) {
+        addressId = existingAddress.id;
       } else {
         const newAddress = await prisma.address.create({
           data: addressData,
         });
         addressId = newAddress.id;
       }
-
+    
       // Update person with the new or updated addressId
       return await prisma.person.update({
         where: { id: numericId },
@@ -76,11 +79,13 @@ export async function PUT(request: Request, context: any) {
           lastname,
           phone,
           dateOfBirth: new Date(dateOfBirth), // Ensure correct date format
-          addressId // Correctly linking addressId to the person
+          addressId  // Correctly linking addressId to the person
         },
+        include: {
+          address: true, // Include address data in the response
+        }, // Add a comma here
       });
     });
-
     return new Response(JSON.stringify(updatedPerson), {
       status: 200,
       headers: {
