@@ -13,7 +13,6 @@ import { Person } from '../app/lib/person';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
 
 //import my custom Footer that will go at the bottom of the page
 import Footer from './components/CFooter';
@@ -126,7 +125,7 @@ const HomePage: React.FC = () => {
   return (
 
     <Layout>
-      <AppBar position="static">
+      <AppBar color ="secondary" position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             People
@@ -137,7 +136,7 @@ const HomePage: React.FC = () => {
       <div style={{ marginTop: '50px' }}></div>
 
       <Container component="main" style={{ flex: 1, marginTop: '64px' }}>
-        <Button variant="contained" onClick={() => handleOpen(null)}>Add New Person</Button>
+        <Button color ="secondary" variant="contained" onClick={() => handleOpen(null)}>Add New Person</Button>
         <PersonTable people={people} handleOpen={handleOpen} handleDelete={handleDelete} />
         <PersonDialog
           open={open}
