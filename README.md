@@ -1,9 +1,8 @@
-nextperson-prisma v2
+nextperson-prisma v2.1
 
 -Added Address column front-end and back-end. 
 -Added (street,city,state,zip,country) under Address and created an Address Id. 
--In order to save the address succesfully you need to enter address when creating a new person. 
--If you try to edit address it won't be saved.
+-Fixed bugs
 
 
 
