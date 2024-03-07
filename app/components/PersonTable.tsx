@@ -1,8 +1,6 @@
-//'use client'
-
-import React from 'react';
-import { Paper, Table, TableBody, TableCell, TableHead, TableRow, Button } from '@mui/material';
-import { Person, convertDateOfBirthToString } from '../lib/person';
+import React, { useState } from 'react';
+import { Paper, Table, TableBody, TableCell, TableHead, TableRow, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Person, convertDateOfBirthToString, Address } from '../lib/person';
 
 interface PersonTableProps {
   people: Person[];

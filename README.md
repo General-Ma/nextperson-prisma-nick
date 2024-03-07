@@ -1,3 +1,10 @@
+nextperson-prisma v2.1
+
+-Added Address column front-end and back-end. 
+-Added (street,city,state,zip,country) under Address and created an Address Id. 
+-Fixed bugs
+
+
 
 # Project Documentation
 
@@ -22,13 +29,28 @@ This API allows for managing a list of people, supporting operations to retrieve
 The Prisma schema for this project defines the structure of the data related to `Person`. You can find the schema in the `prisma/schema.prisma` file. 
 
 The `Person` model typically looks like this:
-
 ```prisma
 model Person {
-  id        Int     @id @default(autoincrement())
-  firstname String
-  lastname  String
-  phone     String
+  id          Int      @id @default(autoincrement())
+  firstname   String
+  lastname    String
+  phone       String
+  dateOfBirth DateTime
+  addressId   Int
+  address     Address? @relation(fields: [addressId], references: [id])
+}
+```
+
+The `Address` model looks like this:
+```prisma
+model Address {
+  id      Int      @id @default(autoincrement())
+  street  String
+  city    String
+  state   String
+  zipCode String   @db.VarChar(10)
+  country String
+  Person  Person[]
 }
 ```
 
