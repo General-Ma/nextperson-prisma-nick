@@ -28,7 +28,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 firstname,
                 lastname,
                 phone,
-                dateOfBirth,
+               
             }
         })
 
