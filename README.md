@@ -1,3 +1,8 @@
+nextperson-prisma v2.2
+-Added Upload Files function
+-Still running through some errors 
+
+
 nextperson-prisma v2.1
 
 -Added Address column front-end and back-end. 
