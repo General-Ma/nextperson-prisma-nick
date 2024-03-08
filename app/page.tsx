@@ -137,7 +137,9 @@ const HomePage: React.FC = () => {
 
       <Container component="main" style={{ flex: 1, marginTop: '64px' }}>
         <Button color ="secondary" variant="contained" onClick={() => handleOpen(null)}>Add New Person</Button>
-        <PersonTable people={people} handleOpen={handleOpen} handleDelete={handleDelete} />
+        <PersonTable people={people} handleOpen={handleOpen} handleDelete={handleDelete} handleUpload={function (personId: number): void {
+          throw new Error('Function not implemented.');
+        } } />
         <PersonDialog
           open={open}
           handleClose={handleClose}

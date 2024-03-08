@@ -19,7 +19,7 @@ const formatAddress = (address: Address | null): string => {
   return `${address.street}, ${address.city}, ${address.state}, ${address.zipCode}, ${address.country}`;
 };
 
-const handleUpload = (personId: number) => {
+ const handleUpload = (personId: number) => {
   // Implement your logic to upload a file here
   console.log(`Upload for person ID: ${personId}`);
 };
@@ -27,7 +27,7 @@ const handleUpload = (personId: number) => {
 const PersonTable: React.FC<PersonTableProps> = ({ people, handleOpen, handleDelete, handleUpload }): ReactNode => {
   const [openDialog, setOpenDialog] = useState(false);
   const [deleteCandidate, setDeleteCandidate] = useState<number | null>(null);
-
+  const [files, setFiles] = useState<File[]>([]); // Add this line
   const openDeleteDialog = (id: number) => {
     setDeleteCandidate(id);
     setOpenDialog(true);
