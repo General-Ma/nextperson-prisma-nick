@@ -1,4 +1,4 @@
-nextperson-prisma v2
+nextperson-prisma v2.1
 
 -Added Address column front-end and back-end. 
 -Added (street,city,state,zip,country) under Address and created an Address Id. 
@@ -31,12 +31,13 @@ The Prisma schema for this project defines the structure of the data related to 
 The `Person` model typically looks like this:
 ```prisma
 model Person {
-  id        Int     @id @default(autoincrement())
-  firstname String
-  lastname  String
-  phone     String
-  dateOfBirth: DateTime;
-  address: Address;
+  id          Int      @id @default(autoincrement())
+  firstname   String
+  lastname    String
+  phone       String
+  dateOfBirth DateTime
+  addressId   Int
+  address     Address? @relation(fields: [addressId], references: [id])
 }
 ```
 

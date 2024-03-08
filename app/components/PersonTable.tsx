@@ -14,6 +14,7 @@ interface File {
   filename: string;
 }
 
+
 const formatAddress = (address: Address | null): string => {
   if (!address) return 'No address';
   return `${address.street}, ${address.city}, ${address.state}, ${address.zipCode}, ${address.country}`;
@@ -99,5 +100,36 @@ const PersonTable: React.FC<PersonTableProps> = ({ people, handleOpen, handleDel
     </>
   );
 };
+
+const PersonTable: React.FC<PersonTableProps> = ({ people, handleOpen, handleDelete }) => (
+  <Paper>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>First Name</TableCell>
+          <TableCell>Last Name</TableCell>
+          <TableCell>Phone</TableCell>
+          <TableCell>Date of Birth</TableCell>
+          <TableCell>Actions</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {people.map(person => (
+          <TableRow key={person.id}>
+            <TableCell>{person.firstname}</TableCell>
+            <TableCell>{person.lastname}</TableCell>
+            <TableCell>{person.phone}</TableCell>
+            <TableCell>{convertDateOfBirthToString(person)}</TableCell>
+            <TableCell>
+              <Button onClick={() => handleOpen(person)}>Edit</Button>
+              <Button onClick={() => handleDelete(person.id)}>Delete</Button>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </Paper>
+);
+ main
 
 export default PersonTable;

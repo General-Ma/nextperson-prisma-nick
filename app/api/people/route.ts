@@ -38,20 +38,8 @@ export async function POST(req: NextRequest) {
                 lastname,
                 phone,
                 dateOfBirth,
-                address:  {
-                    create: {
-                        street,
-                        city,
-                        state,
-                        zipCode,
-                        country,
-                    },
-                },
-            },
-            include: {
-                address: true, // Include the address in the response
-            },
-        });
+            }
+        })
 
         //return the data record
         return new Response(JSON.stringify(person), {
