@@ -15,9 +15,24 @@ interface PersonDialogProps {
 
 const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentPerson, setCurrentPerson, handleSubmit }) => {
   const [initialCurrentPersonExist, setInitialCurrentPersonExist] = useState<boolean>(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   useEffect(() => {
       setInitialCurrentPersonExist(currentPerson !== null);
   }, [open]);
+
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const file = event.target.files ? event.target.files[0] : null;
+    setSelectedFile(file);
+};
+
+  const handleUpload = (event: React.MouseEventHandler<HTMLButtonElement>) => {
+   if (selectedFile) {// Your upload logic here
+    console.log(`Upload for person ${currentPerson?.id}`);
+    console.log(selectedFile);
+  }
+  };
+
 
   const handleAddressChange = (field: keyof Person['address'], value: string) => {
     setCurrentPerson(prev => {
@@ -34,6 +49,7 @@ const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentP
     });
   };
 
+  
   
   return (
   <Dialog open={open} onClose={handleClose}>
@@ -107,6 +123,12 @@ const PersonDialog: React.FC<PersonDialogProps> = ({ open, handleClose, currentP
             value={currentPerson?.address?.country || ''}
             onChange={e => handleAddressChange('country' as keyof Person['address'], e.target.value)}
           />
+          <TextField
+            margin="dense"
+            type="file"
+            fullWidth
+            onChange={handleFileSelect}
+         />
     </DialogContent>
     <DialogActions>
       <Button onClick={handleClose} color="primary">

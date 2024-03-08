@@ -6,6 +6,10 @@ export interface Address {
     country?: string;
 }
 
+export interface Files {
+    url: string;
+    filename: string;
+}
 export interface Person {
     id: number;
     firstname: string;
@@ -13,6 +17,7 @@ export interface Person {
     phone: string;
     dateOfBirth: Date;
     address?: Address;
+    files?: Files[];
 }
 
 export const convertDateOfBirthToString = (person: Person): string => {
@@ -24,3 +29,4 @@ export const convertDateOfBirthToString = (person: Person): string => {
     }
     return parsedDateOfBirth
 }
+
