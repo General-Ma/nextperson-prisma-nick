@@ -16,7 +16,19 @@ model Person {
   dateOfBirth DateTime
   addressId   Int
   address     Address? @relation(fields: [addressId], references: [id])
+  files       File[]
 }
+ model File {
+  id          Int      @id @default(autoincrement())
+  url         String   // S3 URL
+  filename    String   // Original filename
+  mimeType    String?  // MIME type, optional
+  size        Int?     // File size, optional
+  personId    Int      // Connect to Person
+  person      Person   @relation(fields: [personId], references: [id])
+  uploadDate  DateTime @default(now())
+}
+
 
 model Address {
   id      Int      @id @default(autoincrement())
